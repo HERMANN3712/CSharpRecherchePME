@@ -120,12 +120,35 @@ namespace CSharpRecherchePME
 
             foreach (HtmlNode node in nodes)
             {
-                string id = node.Id;
+                PME pme = new PME();
 
-                var context = node.InnerText;
-                context = Regex.Replace(context, @"\s+", " ");
-                context = Regex.Replace(context, @"\n+", "\n");
-                list.Add(new PME(id, context));
+                string id = node.Id;
+                pme.id = id;
+
+                var n = new HtmlDocument();
+                n.LoadHtml(node.OuterHtml);
+
+                var  test = n.DocumentNode.SelectSingleNode("//a[starts-with(@href, 'mailto:')]");                
+
+                var title =  n.DocumentNode.SelectSingleNode("//h3[1]/span[1]").InnerText;
+                pme.title = title;
+
+                var tel = n.DocumentNode.SelectSingleNode("//a[starts-with(@href, 'tel:')]")?.InnerText ?? "no phone";
+                pme.tel = tel;
+
+                var detail = n.DocumentNode.SelectSingleNode("//h4[1]")?.InnerText ?? "";
+                pme.detail = detail;
+
+                var address = n.DocumentNode.SelectSingleNode("//p[@class = 'easy-copy-paste']")?.InnerText ?? "";
+                address = Regex.Replace(address, @"\s+", " ");
+                address = Regex.Replace(address, @"\n+", "\n");
+                address = address.Trim();
+                pme.address = address;
+
+                var email = n.DocumentNode.SelectSingleNode("//a[starts-with(@href, 'mailto:')]")?.InnerText ?? "no mail";
+                pme.email = email;
+
+                list.Add(pme);
             }
             Debug.WriteLine(" ... " + list.Count);
 
@@ -156,13 +179,11 @@ namespace CSharpRecherchePME
     public class PME
     {
         public string id { get; set; }
-        public string text { get; set; }
-
-        public PME(string id, string text)
-        {
-            this.id = id;
-            this.text = text;
-        }
+        public string tel { get; set; }
+        public string email { get; set; }
+        public string title { get; set; }
+        public string detail { get; set; }        
+        public string address { get; set; }
     }
 
 }

@@ -8,12 +8,17 @@
 
   <ItemGroup>
     <None Remove="app.ico" />
+    <None Remove="csv.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="app.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="csv.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+
   </ItemGroup>
 
   <ItemGroup>

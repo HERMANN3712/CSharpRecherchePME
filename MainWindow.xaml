@@ -5,25 +5,28 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:CSharpRecherchePME" mc:Ignorable="d" Title="C# Recherche d'entreprise" Height="450" Width="800" Icon="app.ico">
     <DockPanel Margin="10,10,10,10">
-    
+
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Orientation="Horizontal" DockPanel.Dock="Top">
             <Label FontFamily="Arial">Métiers: </Label>
-            <ComboBox TextBoxBase.TextChanged="ComboBox_TextChanged" SelectionChanged="ComboBox_SelectionChanged"
+            <ComboBox TextBoxBase.TextChanged="ComboBox_TextChanged" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpened"
+              HorizontalContentAlignment="Left" VerticalContentAlignment="Center" StaysOpenOnEdit="True" IsTextSearchEnabled="False"
+              Text="search Job ..." IsEditable="true" Width="260" Margin="10,0,10,10" x:Name="cbJob"/>
 
-             HorizontalContentAlignment="Left"
-             VerticalContentAlignment="Center"
-             StaysOpenOnEdit="True"
-             IsTextSearchEnabled="False"
-             Text="search Job ..." IsEditable="true" Width="210" Margin="10,0,10,10" Name="cbJob"/>
-            
             <Label FontFamily="Arial">Ville:</Label>
-            <ComboBox TextBoxBase.TextChanged="ComboBox_TextChanged" SelectionChanged="ComboBox_SelectionChanged"
-             HorizontalContentAlignment="Left" 
-             VerticalContentAlignment="Center"
-             StaysOpenOnEdit="True"
-             IsTextSearchEnabled="False"
-             Text="search Location ..."  IsEditable="true" Width="160" Margin="10,0,10,10" Name ="cbLocation"/>
+            <ComboBox TextBoxBase.TextChanged="ComboBox_TextChanged" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpened"
+              HorizontalContentAlignment="Left" VerticalContentAlignment="Center" StaysOpenOnEdit="True" IsTextSearchEnabled="False"
+              Text="search Location ..." IsEditable="true" Width="160" Margin="10,0,10,10" x:Name ="cbLocation"/>
         </StackPanel>
-        <DataGrid Name="dgData"/>
+        <DataGrid x:Name="dgData" IsReadOnly="True"  SelectionMode="Single" SelectionUnit="Cell">
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exporter file .csv" Click="MenuItem_Click">
+                        <MenuItem.Icon>
+                            <Image Source="/CSharpRecherchePME;component/csv.png" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
     </DockPanel>
 </Window>
