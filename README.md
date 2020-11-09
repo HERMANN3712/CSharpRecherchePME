@@ -1,7 +1,10 @@
 # CSharpRecherchePME
 ---
-<img src="https://github.com/HERMANN3712/CSharpRecherchePME/blob/master/media/widget%20labonneboite.png?raw=true" alt="screenshot" height="120"/> <img src="https://github.com/HERMANN3712/CSharpRecherchePME/blob/master/media/copie%20ecran.png?raw=true" alt="screenshot" height="120"/>
 
+
+<img src="https://github.com/HERMANN3712/CSharpRecherchePME/blob/master/media/widget%20labonneboite.png?raw=true" alt="screenshot" height="120"/> | <img src="https://github.com/HERMANN3712/CSharpRecherchePME/blob/master/media/copie%20ecran.png?raw=true" alt="screenshot" height="120"/>
+:-------------------------:|:-------------------------:
+widget 'La Bonne Boite'| copie d'écran de '**CSharpRecherchePME**'
 ---
 
 ### Details
@@ -15,5 +18,5 @@ https://www.emploi-store-dev.fr/portail-developpeur-cms/home.html
 
 https://github.com/StartupsPoleEmploi/labonneboite
 
-Le seul problème avec cette l'application web "La Bonne Boite", c'est qu'elle ne permet de récuperer des données globalemenet, massivement et de pouvoir les exploités avec un tableur d'où l'application 'CSharpRecherchePME' qui est une réutilisatrice de 'La Bonne Boite' format desktop.
+Le seul problème avec cette l'application web "La Bonne Boite", c'est qu'elle ne permet de récuperer des données globalemenet, massivement et de pouvoir les exploités avec un tableur d'où l'application '**CSharpRecherchePME**' qui est une réutilisatrice de 'La Bonne Boite' format desktop.
 
