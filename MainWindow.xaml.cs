@@ -57,7 +57,7 @@ namespace CSharpRecherchePME
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs";
+            saveFileDialog.Filter = "Text file (*.txt)|*.txt|CSV file (*.csv)|*.csv";
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             if (saveFileDialog.ShowDialog() == true)
             {
@@ -69,15 +69,15 @@ namespace CSharpRecherchePME
         {
             if (items == null) return;
             Type itemType = typeof(T);
-            var props = itemType.GetProperties(BindingFlags.Public | BindingFlags.Instance).OrderBy(p => p.Name);
+            var props = itemType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
             using (var writer = new StreamWriter(path))
             {
-                writer.WriteLine(string.Join(", ", props.Select(p => p.Name)));
+                writer.WriteLine(string.Join(";", props.Select(p => p.Name)));
 
                 foreach (var item in items)
                 {
-                    writer.WriteLine(string.Join(", ", props.Select(p => p.GetValue(item, null))));
+                    writer.WriteLine(string.Join(";", props.Select(p => p.GetValue(item, null))));
                 }
             }
         }

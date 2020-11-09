@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Collections.Generic;
 using System.Diagnostics;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace CSharpRecherchePME
 {
@@ -36,7 +37,7 @@ namespace CSharpRecherchePME
             }
         }
 
-        private static async Task<HtmlNodeCollection> ExecuteQueryPME(string url)
+        private static HtmlNodeCollection ExecuteQueryPME(string url)
         {
             var xmlDoc = new HtmlDocument();
             var root = HtmlNode.CreateNode("<root></root>");
@@ -115,7 +116,7 @@ namespace CSharpRecherchePME
             var url = URLPME.Replace("@codepostal", location).Replace("@occupation", job);
             //var url = "https://labonneboite.pole-emploi.fr/entreprises?j=Conduite+d%27engins+de+d%C3%A9placement+des+charges+(Cariste%2C+...)&l=31000&lat=43.613408&lon=1.44607&occupation=conduite-d-engins-de-deplacement-des-charges";
 
-            var nodes = ExecuteQueryPME(url).Result;
+            var nodes = ExecuteQueryPME(url);
             List<PME> list = new List<PME>();
 
             foreach (HtmlNode node in nodes)
@@ -128,18 +129,19 @@ namespace CSharpRecherchePME
                 var n = new HtmlDocument();
                 n.LoadHtml(node.OuterHtml);
 
-                var  test = n.DocumentNode.SelectSingleNode("//a[starts-with(@href, 'mailto:')]");                
-
                 var title =  n.DocumentNode.SelectSingleNode("//h3[1]/span[1]").InnerText;
+                title = HttpUtility.HtmlDecode(title).Replace(';', ',');
                 pme.title = title;
 
                 var tel = n.DocumentNode.SelectSingleNode("//a[starts-with(@href, 'tel:')]")?.InnerText ?? "no phone";
                 pme.tel = tel;
 
                 var detail = n.DocumentNode.SelectSingleNode("//h4[1]")?.InnerText ?? "";
+                detail = HttpUtility.HtmlDecode(detail).Replace(';', ',');
                 pme.detail = detail;
 
                 var address = n.DocumentNode.SelectSingleNode("//p[@class = 'easy-copy-paste']")?.InnerText ?? "";
+                address = HttpUtility.HtmlDecode(address).Replace(';', ',');
                 address = Regex.Replace(address, @"\s+", " ");
                 address = Regex.Replace(address, @"\n+", "\n");
                 address = address.Trim();
