@@ -15,7 +15,7 @@ namespace CSharpRecherchePME
     {
         private const string URLJob = "https://labonneboite.pole-emploi.fr/suggest_job_labels?term=";
         private const string URLLocation = "https://labonneboite.pole-emploi.fr/autocomplete/locations?term=";
-        private const string URLPME = "https://labonneboite.pole-emploi.fr/entreprises?l=@codepostal&occupation=@occupation";
+        private const string URLPME = "https://labonneboite.pole-emploi.fr/entreprises?l=@codepostal&occupation=@occupation&departments=@departement";
         static readonly HttpClient client = new HttpClient();
         private static async Task<Object> ExecuteQueryHttp(string url)
         {
@@ -52,6 +52,8 @@ namespace CSharpRecherchePME
                 string html = client.DownloadString(url + String.Format("&d=30&from={0}&sort=score&to=800", i * 100 + 1));
                 htmlDoc.LoadHtml(html);
                 HtmlNodeCollection nodes = htmlDoc.DocumentNode.SelectNodes("//div[starts-with(@id,'company-')]");
+                if(nodes == null) return null;
+
                 if (i == 0)
                 {
                     compare = nodes[0].Id;
@@ -111,14 +113,16 @@ namespace CSharpRecherchePME
             return locs;
         }
 
-        public static List<PME> GetListPME(string job, string location)
+        public static List<PME> GetListPME(string job, string location, string departement)
         {
-            var url = URLPME.Replace("@codepostal", location).Replace("@occupation", job);
+            var url = URLPME.Replace("@codepostal", location).Replace("@occupation", job).Replace("@departement", departement);
             //var url = "https://labonneboite.pole-emploi.fr/entreprises?j=Conduite+d%27engins+de+d%C3%A9placement+des+charges+(Cariste%2C+...)&l=31000&lat=43.613408&lon=1.44607&occupation=conduite-d-engins-de-deplacement-des-charges";
 
             var nodes = ExecuteQueryPME(url);
+            if (nodes == null) return new List<PME>();
+            
             List<PME> list = new List<PME>();
-
+            
             foreach (HtmlNode node in nodes)
             {
                 PME pme = new PME();
@@ -172,6 +176,7 @@ namespace CSharpRecherchePME
     {
         public string city { get; set; }
         public string zipcode { get; set; }
+        public string department { get; set; }
         public string label { get; set; }
         public double latitude { get; set; }
         public double longitude { get; set; }

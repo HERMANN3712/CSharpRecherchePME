@@ -41,14 +41,15 @@ namespace CSharpRecherchePME
             if (cbJob.SelectedIndex > -1 && cbLocation.SelectedIndex > -1)
             {
                 var occupation = ((Job)cbJob.SelectedItem).occupation;
-                var location =  ((Location)cbLocation.SelectedItem).value;
+                var location =  ((Location)cbLocation.SelectedItem);
                 new Thread(() =>
                 {
-                    var list = QueriesHttp.GetListPME(occupation, location);
+                    var departement = location.department != null ? location.department : "";
+                    var list = QueriesHttp.GetListPME(occupation, location.value, departement);
+                   
                     dgData.Dispatcher.Invoke(() =>
                     {
-                        dgData.ItemsSource = list;
-    
+                        dgData.ItemsSource = list;    
                     });
                 }).Start();
             }
