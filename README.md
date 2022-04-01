@@ -18,5 +18,5 @@ https://www.emploi-store-dev.fr/portail-developpeur-cms/home.html
 
 https://github.com/StartupsPoleEmploi/labonneboite
 
-Le seul problème avec cette l'application web "La Bonne Boite", c'est qu'elle ne permet de récupérer des données globalemenet, massivement et de pouvoir les exploiter avec un tableur d'où l'application '**CSharpRecherchePME**' qui est une réutilisatrice de 'La Bonne Boite' format desktop.
+Le seul problème avec cette l'application web "La Bonne Boite", c'est qu'elle ne permet pas de récupérer des données globalemenet, massivement et de pouvoir les exploiter avec un tableur d'où l'application '**CSharpRecherchePME**' qui est une réutilisatrice de 'La Bonne Boite' format desktop.
 
